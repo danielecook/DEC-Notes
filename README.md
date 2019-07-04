@@ -1,3 +1,5 @@
 # learning
 
-[asdf]()
+## Bioinformatics
+
+* [index-swaps](bioinformatics/index-swaps.md)
