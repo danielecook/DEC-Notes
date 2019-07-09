@@ -16,6 +16,8 @@ PCR-plus - 8 Extra cycles
 
 ### Factors contributing to swapping
 
+The authors in this paper identified several factors that contribute to increased rates of swapping.
+
 - Presence of excess free primer or adapters
 - Increases as plex increases. Prob(self-swaps) decreases, and prob of swaps with other samples increases.
 - Library prep method influences swap rates with DNA shearing + adapter ligation + HiSeq - Highest rates
@@ -63,3 +65,80 @@ $\hat{p} = 1 - (1-f)^{2n}$
 If index switching is occuring, then $\hat{p} > p$.
 
 ![](img/phat.png)
+
+
+__[Occult Specimen Contamination in Routine Clinical Next-Generation Sequencing Testing](https://academic.oup.com/ajcp/article/144/4/667/1767338)__
+
+_Sehn et al._
+
+* Examined haplotypes to identify contamination.
+* Developed a list of 200 pairs of closely spaced SNPs.
+  * Within 400 bp of one another
+  * Population minor allele $frequency > 0.1$
+  * $r^2 < 0.5$
+  * $HWE \geq 0.05$
+* Contamination estimated as $2x$ the mean frequency of the minor haplotype at multihaplotype loci to correct for zygosity (???).
+
+__[Sample-Index Miasassignment Impacts Tumour Exome Sequencing](https://www.nature.com/articles/s41598-018-23563-4)__
+
+_Vodak et al._
+
+* [Git repo]()
+
+* "index misassignment is a source of false positive somatic variant calls in a form of true variation obtained from co-multiplexed samples."
+
+* Performed deep exome sequencing; Median coverage: 315x Tumor; 146x control. Compared HiSeq 2000/2500 and HiSeq 4000 (ExAmp).
+* Measured sample-wise contamination using Conpair.
+* Simulations suggest conpair underestimates contamination rates with increasing sample counts.
+* __Conpair__ is designed for 2 sample mixtures only (supposedly)
+
+
+### Contamination Estimates
+
+Comparing ExAmp and Bridge amplification, they identify median per-sample rates:
+
+* 0.839% with ExAmp
+* 0.187% with Bridge Amplification
+
+![](img/est.png)
+
+Examining samples that were sequenced as part of a pool or on their own revealed estimates of:
+
+* 0.644% pooled (multiplexed)
+* 0.046% in individual lanes
+
+"The dependency on sample pooling indicated that co-multiplexed samples serve as contaminants."
+
+### Artifactual variant calls
+
+__SSNV__ = Somatic single nucleotide variants
+
+* Examined the "pool complement" which consisted of reads from all co-multiplexed samples.
+* Calculated two allelic fractions for each somatic variant:
+  * __PC-AF__ - "Pool Complement" allelic fraction; Allelic fraction in the source of contamination.
+  * __AF__ - Allelic fraction in a sample variant suspected of contamination.
+
+![](img/pool_af.png)
+
+Two distinct classes of variants identified from resulting analysis:
+
+1. Apparently true somatic variants consisting of variants not present in the Norwegian population, and lacking support in the pool complement.
+2. Suspected contaminant variants, consisting of __common Norwegian Germline Variants__ with >= 5% allele frequency, with considerable support in their pool complements. 
+
+[](img/Basic_plot_example.png)
+
+
+__[Conpair: concordance and contamination estimator for matched tumor–normal pairs](https://academic.oup.com/bioinformatics/article-abstract/32/20/3196/2196627)__
+
+_Bergmann et al._
+
+* [github](https://github.com/nygenome/conpair)
+
+* [](https://media.springernature.com/lw785/springer-static/image/art%3A10.1186%2Fs12864-018-4703-0/MediaObjects/12864_2018_4703_Fig1_HTML.gif)
+  
+"Using a grid-search over a range of contamination fractions";
+
+A _grid search_ is simply a parameter sweep or exhaustive search.
+
+
+* VerifyBamID works well for __copy-neutral__ samples.
