@@ -127,14 +127,11 @@ Two distinct classes of variants identified from resulting analysis:
 
 [](img/Basic_plot_example.png)
 
-
 __[Conpair: concordance and contamination estimator for matched tumor–normal pairs](https://academic.oup.com/bioinformatics/article-abstract/32/20/3196/2196627)__
 
 _Bergmann et al._
 
 * [github](https://github.com/nygenome/conpair)
-
-* [](https://media.springernature.com/lw785/springer-static/image/art%3A10.1186%2Fs12864-018-4703-0/MediaObjects/12864_2018_4703_Fig1_HTML.gif)
   
 "Using a grid-search over a range of contamination fractions";
 
